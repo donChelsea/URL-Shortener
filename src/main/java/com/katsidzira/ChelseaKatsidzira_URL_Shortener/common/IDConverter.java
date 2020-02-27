@@ -17,9 +17,9 @@ class Main {
 public class IDConverter {
 
     private static IDConverter instance;
-    private static HashMap<Integer, Character> indexToCharTable = new HashMap<>();
-    private static HashMap<Character, Integer> charToIndexTable = new HashMap<>();
-    private static List<Integer> conversionList = new ArrayList<>();
+    private static HashMap<Long, Character> indexToCharTable = new HashMap<>();
+    private static HashMap<Character, Long> charToIndexTable = new HashMap<>();
+    private static List<Long> conversionList = new ArrayList<>();
 
     private IDConverter() {
         fillIndexToCharTable();
@@ -33,10 +33,10 @@ public class IDConverter {
         return instance;
     }
 
-    public static String createUniqueId(int base10Id) {
-        String uniqueId = "";
-        int remainder;
-        int quotient;
+    public static String createUniqueId(long base10Id) {
+        StringBuilder uniqueId = new StringBuilder();
+        long remainder;
+        long quotient;
 
         while (base10Id > 0) {
             remainder = base10Id % 62;
@@ -46,28 +46,31 @@ public class IDConverter {
         }
 
         for (int i = conversionList.size() - 1; i >= 0; i--) {
-            int index = conversionList.get(i);
-            uniqueId += indexToCharTable.get(index);
+            long index = conversionList.get(i);
+            uniqueId.append(indexToCharTable.get(index));
         }
 
-        return uniqueId;
+        return uniqueId.toString();
     }
 
-    public static int getDictionaryKeyFromUniqueID(String uniqueUrlId) {
+    public static long getDictionaryKeyFromUniqueID(String uniqueUrlId) {
         int len = uniqueUrlId.length() - 1;
         int base10Key = 0;
         while (len >= 0) {
             for (char ch : uniqueUrlId.toCharArray()) {
-                int letter = charToIndexTable.get(ch);
+                long letter = charToIndexTable.get(ch);
                 base10Key += letter * (Math.pow(62, len));
                 len--;
             }
         }
+
         return base10Key;
     }
 
+    // load maps with character and index data for conversion
+
     public static void fillIndexToCharTable() {
-        int key = 0;
+        long key = 0;
         for (char ch = 'a'; ch <= 'z'; ch++) {
             indexToCharTable.put(key, ch);
             key++;
@@ -83,7 +86,7 @@ public class IDConverter {
     }
 
     public static void fillCharToIndexTable() {
-        int key = 0;
+        long key = 0;
         for (char ch = 'a'; ch <= 'z'; ch++) {
             charToIndexTable.put(ch, key);
             key++;
