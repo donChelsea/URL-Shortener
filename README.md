@@ -5,7 +5,7 @@
 <h3> To run:</h3>
 Download or clone it to your local machine. Once opened, import the gradle file to import all the dependencies. Afterwards, open the app class in src/main/java/com/katsidzira/ChelseaKatsidzira_URL_Shortener/ and run the app to start the server.</br> 
 
-<br>To get a response, use Postman and enter the URL as http://localhost:8080/shortener, switch the method to POST, and set the body to application/json. 
+<br>To get a response, use Postman and enter the URL as http://localhost:8080/, switch the method to POST, and set the body to application/json. 
 
 <h3>IDConverter</h3>
 1. Creates a unique ID for shortened URL</br>
